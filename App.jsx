@@ -2,213 +2,124 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [semester, setSemester] = useState("3rd Semester");
+  const [selectedSubject, setSelectedSubject] = useState(null);
 
-  const subjects = {
-    "3rd Semester": [
-      "Java",
-      "CC",
-      "DAA",
-      "DBMS",
-      "Java Lab",
-      "DBMS Lab",
-      "Shell Lab",
-    ],
+  const javaLabPrograms = [
+    {
+      title: "Program 1: Factorial of a list of numbers using command-line arguments",
+      code: `public class Factorial {
+    public static void main(String[] args) {
 
-    "4th Semester": [
-      "Subject 1",
-      "Subject 2",
-      "Subject 3",
-    ],
+        if (args.length == 0) {
+            System.out.println("Please provide numbers as command line arguments.");
+            return;
+        }
 
-    "5th Semester": [
-      "Subject 1",
-      "Subject 2",
-      "Subject 3",
-    ],
+        for (int i = 0; i < args.length; i++) {
+            int num = Integer.parseInt(args[i]);
+            long fact = 1;
 
-    "6th Semester": [
-      "Subject 1",
-      "Subject 2",
-      "Subject 3",
-    ],
+            for (int j = 1; j <= num; j++) {
+                fact = fact * j;
+            }
+
+            System.out.println("Factorial of " + num + " = " + fact);
+        }
+    }
+}`,
+      output: `Factorial of 5 = 120
+Factorial of 3 = 6
+Factorial of 7 = 5040`,
+    },
+  ];
+
+  const subjects = [
+    "Java",
+    "CC",
+    "DAA",
+    "DBMS",
+    "Java Lab",
+    "DBMS Lab",
+    "Shell Lab",
+  ];
+
+  const copyCode = (code) => {
+    navigator.clipboard.writeText(code);
+    alert("Code copied!");
   };
 
-  const openNote = (file) => {
-    window.open(file, "_blank");
-  };
+  if (selectedSubject === "Java Lab") {
+    return (
+      <div className="app">
+        <header>
+          <h1>📚 SemesterVault</h1>
+          <p>3rd Semester - Java Lab</p>
+        </header>
+
+        <main>
+          <button
+            className="back-button"
+            onClick={() => setSelectedSubject(null)}
+          >
+            ← Back to Subjects
+          </button>
+
+          <h2>☕ Java Lab Programs</h2>
+
+          {javaLabPrograms.map((program, index) => (
+            <div className="program-card" key={index}>
+              <h3>{program.title}</h3>
+
+              <div className="code-header">
+                <span>Java</span>
+                <button onClick={() => copyCode(program.code)}>
+                  📋 Copy Code
+                </button>
+              </div>
+
+              <pre>
+                <code>{program.code}</code>
+              </pre>
+
+              <h4>Output:</h4>
+
+              <pre className="output">
+                {program.output}
+              </pre>
+            </div>
+          ))}
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="app">
-
       <header>
-        <h1>📚 My Notes</h1>
-        <p>My Semester Notes</p>
+        <h1>📚 SemesterVault</h1>
+        <p>Your BCA Notes Collection</p>
       </header>
 
-      <div className="container">
+      <main>
+        <h2>3rd Semester</h2>
 
-        <aside>
-          <h2>Semesters</h2>
+        <div className="subject-grid">
+          {subjects.map((subject) => (
+            <button
+              className="subject-card"
+              key={subject}
+              onClick={() => setSelectedSubject(subject)}
+            >
+              {subject === "Java Lab" ? "☕ " : "📖 "}
+              {subject}
+            </button>
+          ))}
+        </div>
 
-          <button onClick={() => setSemester("3rd Semester")}>
-            📘 3rd Semester
-          </button>
-
-          <button onClick={() => setSemester("4th Semester")}>
-            📗 4th Semester
-          </button>
-
-          <button onClick={() => setSemester("5th Semester")}>
-            📙 5th Semester
-          </button>
-
-          <button onClick={() => setSemester("6th Semester")}>
-            📕 6th Semester
-          </button>
-        </aside>
-
-        <main>
-
-          <h2>{semester}</h2>
-
-          <div className="subjects">
-
-            {subjects[semester].map((subject) => (
-
-              <div className="subject" key={subject}>
-
-                <h3>📖 {subject}</h3>
-
-                <p>Click to view notes</p>
-
-                {/* JAVA */}
-
-                {subject === "Java" && (
-                  <>
-                    <button
-                      onClick={() =>
-                        openNote(
-                          "https://1drv.ms/p/c/187D7A65FFEBBE6D/IQSufqaL3kAOR4K375kwyzu9AZgsMS5ekkQx4W4foZGYlIM?em=2&wdAr=1.7777777777777777"
-                        )
-                      }
-                    >
-                      Module 1 Part 1
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        openNote("/notes/Module-1%20Part-2.pdf")
-                      }
-                    >
-                      Module 1 Part 2
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        openNote("/notes/JAVA%20MODULE-2.pdf")
-                      }
-                    >
-                      Module 2
-                    </button>
-                  </>
-                )}
-
-                {/* CC */}
-
-                {subject === "CC" && (
-                  <button
-                    onClick={() =>
-                      openNote(
-                        "https://1drv.ms/p/c/187D7A65FFEBBE6D/IQTGO4lPB1EeRKaXN-EA735tAeqnC8fz_NfWSQjmqaFxvvs?em=2&wdAr=1.7777777777777777"
-                      )
-                    }
-                  >
-                    Module 1
-                  </button>
-                )}
-
-                {/* DAA */}
-
-                {subject === "DAA" && (
-                  <button
-                    onClick={() =>
-                      openNote("/notes/DAA-Module-1.pdf")
-                    }
-                  >
-                    Module 1
-                  </button>
-                )}
-
-                {/* DBMS */}
-
-                {subject === "DBMS" && (
-                  <>
-                    <button
-                      onClick={() =>
-                        openNote("/notes/DBMS-Unit-1.pdf")
-                      }
-                    >
-                      Unit 1
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        openNote(
-                          "/notes/DBMS-Unit-1-Chapter-2.pdf"
-                        )
-                      }
-                    >
-                      Chapter 2
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        openNote("/notes/DBMS-Unit-2.pdf")
-                      }
-                    >
-                      Unit 2
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        openNote(
-                          "https://1drv.ms/p/c/187D7A65FFEBBE6D/IQQB_8nFVTDCSZOefAISUxiBAUD-RL-jq4BdMKNGYt_XBok?em=2&wdAr=1.7777777777777777"
-                        )
-                      }
-                    >
-                      Unit 2 Part 2
-                    </button>
-                  </>
-                )}
-
-                {/* OTHER SUBJECTS */}
-
-                {subject !== "Java" &&
-                  subject !== "CC" &&
-                  subject !== "DAA" &&
-                  subject !== "DBMS" && (
-                    <button
-                      onClick={() =>
-                        alert(
-                          `Notes for ${subject} will be added soon.`
-                        )
-                      }
-                    >
-                      View Notes
-                    </button>
-                  )}
-
-              </div>
-
-            ))}
-
-          </div>
-
-        </main>
-
-      </div>
-
+        <p className="coming-soon">
+          Select a subject to view your notes.
+        </p>
+      </main>
     </div>
   );
 }
