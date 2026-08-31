@@ -38,11 +38,37 @@ function App() {
     window.open(file, "_blank");
   };
 
+  const javaLabProgram1 = `public class Factorial {
+    public static void main(String[] args) {
+
+        if (args.length == 0) {
+            System.out.println("Please provide numbers as command line arguments.");
+            return;
+        }
+
+        for (int i = 0; i < args.length; i++) {
+            int num = Integer.parseInt(args[i]);
+            long fact = 1;
+
+            for (int j = 1; j <= num; j++) {
+                fact = fact * j;
+            }
+
+            System.out.println("Factorial of " + num + " = " + fact);
+        }
+    }
+}`;
+
+  const copyCode = () => {
+    navigator.clipboard.writeText(javaLabProgram1);
+    alert("Java code copied!");
+  };
+
   return (
     <div className="app">
 
       <header>
-        <h1>ðŸ“š My Notes</h1>
+        <h1>📚 My Notes</h1>
         <p>My Semester Notes</p>
       </header>
 
@@ -52,19 +78,19 @@ function App() {
           <h2>Semesters</h2>
 
           <button onClick={() => setSemester("3rd Semester")}>
-            ðŸ“˜ 3rd Semester
+            📘 3rd Semester
           </button>
 
           <button onClick={() => setSemester("4th Semester")}>
-            ðŸ“— 4th Semester
+            📗 4th Semester
           </button>
 
           <button onClick={() => setSemester("5th Semester")}>
-            ðŸ“™ 5th Semester
+            📙 5th Semester
           </button>
 
           <button onClick={() => setSemester("6th Semester")}>
-            ðŸ“• 6th Semester
+            📕 6th Semester
           </button>
         </aside>
 
@@ -78,7 +104,7 @@ function App() {
 
               <div className="subject" key={subject}>
 
-                <h3>ðŸ“– {subject}</h3>
+                <h3>📖 {subject}</h3>
 
                 <p>Click to view notes</p>
 
@@ -182,12 +208,56 @@ function App() {
                   </>
                 )}
 
+                {/* JAVA LAB */}
+
+                {subject === "Java Lab" && (
+                  <>
+                    <h4>
+                      Program 1: Write a program to find factorial
+                      of list of numbers reading input as command
+                      line argument.
+                    </h4>
+
+                    <pre
+                      style={{
+                        background: "#f4f4f4",
+                        padding: "15px",
+                        borderRadius: "8px",
+                        overflowX: "auto",
+                        textAlign: "left",
+                      }}
+                    >
+                      <code>{javaLabProgram1}</code>
+                    </pre>
+
+                    <button onClick={copyCode}>
+                      📋 Copy Code
+                    </button>
+
+                    <h4>OUTPUT:</h4>
+
+                    <pre
+                      style={{
+                        background: "#f4f4f4",
+                        padding: "15px",
+                        borderRadius: "8px",
+                        textAlign: "left",
+                      }}
+                    >
+{`Factorial of 5 = 120
+Factorial of 3 = 6
+Factorial of 7 = 5040`}
+                    </pre>
+                  </>
+                )}
+
                 {/* OTHER SUBJECTS */}
 
                 {subject !== "Java" &&
                   subject !== "CC" &&
                   subject !== "DAA" &&
-                  subject !== "DBMS" && (
+                  subject !== "DBMS" &&
+                  subject !== "Java Lab" && (
                     <button
                       onClick={() =>
                         alert(
