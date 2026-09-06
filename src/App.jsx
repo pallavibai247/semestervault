@@ -15,24 +15,9 @@ function App() {
       "DBMS Lab",
       "Shell Lab",
     ],
-
-    "4th Semester": [
-      "Subject 1",
-      "Subject 2",
-      "Subject 3",
-    ],
-
-    "5th Semester": [
-      "Subject 1",
-      "Subject 2",
-      "Subject 3",
-    ],
-
-    "6th Semester": [
-      "Subject 1",
-      "Subject 2",
-      "Subject 3",
-    ],
+    "4th Semester": ["Subject 1", "Subject 2", "Subject 3"],
+    "5th Semester": ["Subject 1", "Subject 2", "Subject 3"],
+    "6th Semester": ["Subject 1", "Subject 2", "Subject 3"],
   };
 
   const openNote = (file) => {
@@ -53,7 +38,6 @@ function App() {
       number: 1,
       title:
         "Write a program to find factorial of list of number reading input as command line argument.",
-      type: "link",
       code: `public class Factorial {
 
     public static void main(String[] args) {
@@ -80,7 +64,8 @@ function App() {
 
     {
       number: 2,
-      title: "Write a program to display all prime numbers between two limits.",
+      title:
+        "Write a program to display all prime numbers between two limits.",
       code: `import java.util.Scanner;
 
 public class PrimeRange {
@@ -301,9 +286,7 @@ public class GeometryArea {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(
-            "Choose the figure to calculate area:"
-        );
+        System.out.println("Choose the figure to calculate area:");
 
         System.out.println("1. Circle");
         System.out.println("2. Rectangle");
@@ -316,10 +299,7 @@ public class GeometryArea {
 
             case 1:
 
-                System.out.print(
-                    "Enter radius of circle: "
-                );
-
+                System.out.print("Enter radius of circle: ");
                 double r = sc.nextDouble();
 
                 System.out.println(
@@ -330,42 +310,28 @@ public class GeometryArea {
 
             case 2:
 
-                System.out.print(
-                    "Enter length of rectangle: "
-                );
-
+                System.out.print("Enter length of rectangle: ");
                 double l = sc.nextDouble();
 
-                System.out.print(
-                    "Enter width of rectangle: "
-                );
-
+                System.out.print("Enter width of rectangle: ");
                 double w = sc.nextDouble();
 
                 System.out.println(
-                    "Area of Rectangle: "
-                    + areaRectangle(l, w)
+                    "Area of Rectangle: " + areaRectangle(l, w)
                 );
 
                 break;
 
             case 3:
 
-                System.out.print(
-                    "Enter base of triangle: "
-                );
-
+                System.out.print("Enter base of triangle: ");
                 double b = sc.nextDouble();
 
-                System.out.print(
-                    "Enter height of triangle: "
-                );
-
+                System.out.print("Enter height of triangle: ");
                 double h = sc.nextDouble();
 
                 System.out.println(
-                    "Area of Triangle: "
-                    + areaTriangle(b, h)
+                    "Area of Triangle: " + areaTriangle(b, h)
                 );
 
                 break;
@@ -393,52 +359,39 @@ public class GeometryArea {
     double marks;
 
     StudentMarks() {
-
         id = 0;
         name = "Unknown";
         marks = 0.0;
     }
 
     StudentMarks(int i) {
-
         id = i;
         name = "Not given";
         marks = 0.0;
     }
 
     StudentMarks(int i, String n) {
-
         id = i;
         name = n;
         marks = 0.0;
     }
 
     StudentMarks(int i, String n, double m) {
-
         id = i;
         name = n;
         marks = m;
     }
 
     void display() {
-
-        System.out.println(
-            id + " " + name + " " + marks
-        );
+        System.out.println(id + " " + name + " " + marks);
     }
 
     public static void main(String[] args) {
 
         StudentMarks s1 = new StudentMarks();
-
-        StudentMarks s2 =
-            new StudentMarks(101);
-
-        StudentMarks s3 =
-            new StudentMarks(102, "Ram");
-
-        StudentMarks s4 =
-            new StudentMarks(103, "Sita", 89);
+        StudentMarks s2 = new StudentMarks(101);
+        StudentMarks s3 = new StudentMarks(102, "Ram");
+        StudentMarks s4 = new StudentMarks(103, "Sita", 89);
 
         s1.display();
         s2.display();
@@ -533,7 +486,7 @@ public class StudentReportApplet extends Applet
         );
 
         g.drawString(
-            "USN  : " + t2.getText(),
+            "USN : " + t2.getText(),
             50, 290
         );
 
@@ -682,7 +635,6 @@ public class BallAnimation
     Thread t;
 
     public void init() {
-
         setBackground(Color.white);
     }
 
@@ -857,6 +809,8 @@ public class MouseKeyboardEvents
 }`,
       html: `<html>
 <body>
+
+<h2>Mouse and Keyboard Events Applet</h2>
 
 <applet code="MouseKeyboardEvents.class"
         width="500"
@@ -1045,22 +999,18 @@ appletviewer MouseKeyboardEvents.html`,
                   {subject === "Java Lab" && (
                     <div className="program-list">
 
-                      {javaLabPrograms.map(
-                        (program) => (
+                      {javaLabPrograms.map((program) => (
 
-                          <button
-                            key={program.number}
-                            onClick={() =>
-                              setSelectedProgram(
-                                program
-                              )
-                            }
-                          >
-                            Program {program.number}
-                          </button>
+                        <button
+                          key={program.number}
+                          onClick={() =>
+                            setSelectedProgram(program)
+                          }
+                        >
+                          Program {program.number}
+                        </button>
 
-                        )
-                      )}
+                      ))}
 
                     </div>
                   )}
@@ -1133,21 +1083,41 @@ appletviewer MouseKeyboardEvents.html`,
                     </>
                   )}
 
-                  {subject !== "Java" &&
-                    subject !== "CC" &&
-                    subject !== "DAA" &&
-                    subject !== "DBMS" &&
-                    subject !== "Java Lab" && (
-                      <button
-                        onClick={() =>
-                          alert(
-                            `Notes for ${subject} will be added soon.`
-                          )
-                        }
-                      >
-                        View Notes
-                      </button>
-                    )}
+                  {subject === "Shell Lab" && (
+                    <div className="program-list">
+
+                      {Array.from(
+                        { length: 20 },
+                        (_, index) => index + 1
+                      ).map((number) => (
+
+                        <button
+                          key={number}
+                          onClick={() =>
+                            openNote(
+                              `/notes/Shell/program${number}.sh`
+                            )
+                          }
+                        >
+                          Program {number}
+                        </button>
+
+                      ))}
+
+                    </div>
+                  )}
+
+                  {subject === "DBMS Lab" && (
+                    <button
+                      onClick={() =>
+                        alert(
+                          "DBMS Lab notes will be added soon."
+                        )
+                      }
+                    >
+                      View Notes
+                    </button>
+                  )}
 
                 </div>
 
