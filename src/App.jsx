@@ -2166,7 +2166,7 @@ fi`,
                     <button
                       onClick={() =>
                         openNote(
-                          "/notes/JAVA%20MODULE-2.pdf"
+                          openNote("/notes/java/JAVA%20MODULE-2.pdf")
                         )
                       }
                     >
