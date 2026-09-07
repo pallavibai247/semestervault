@@ -36,7 +36,9 @@ function App() {
   };
 
   const openNote = (file) => {
-    window.open(file, "_blank");
+    if (file) {
+      window.open(file, "_blank", "noopener,noreferrer");
+    }
   };
 
   const copyCode = async (code) => {
@@ -48,9 +50,9 @@ function App() {
     }
   };
 
-  /* =========================
-     JAVA LAB PROGRAMS 1 - 20
-     ========================= */
+  // =========================
+  // JAVA LAB PROGRAMS 1 - 20
+  // =========================
 
   const javaLabPrograms = [
     {
@@ -878,9 +880,9 @@ public class MouseKeyboardEvents
 appletviewer MouseKeyboardEvents.html`,
     },
 
-    /* =========================
-       JAVA PART B - 11 TO 20
-       ========================= */
+    // =========================
+    // JAVA PART B - 11 TO 20
+    // =========================
 
     {
       number: 11,
@@ -1103,8 +1105,6 @@ class StringSort {
 
             System.out.println(str);
         }
-
-        // Sort the strings in ascending order
 
         for (int i = 0; i < n - 1; i++) {
 
@@ -1545,12 +1545,11 @@ public class Barchart extends Applet {
     }
 }`,
     },
-
   ];
 
-  /* =========================
-     SHELL LAB PROGRAMS 1 - 20
-     ========================= */
+  // =========================
+  // SHELL LAB PROGRAMS 1 - 20
+  // =========================
 
   const shellPrograms = [
     {
@@ -1706,13 +1705,17 @@ echo "LCM = $lcm"`,
       number: 8,
       title: "Count Lines, Words and Characters",
       code: `#!/bin/bash
-lines=0; words=0; chars=0
+lines=0
+words=0
+chars=0
+
 while IFS= read -r line || [[ -n "$line" ]]; do
  ((lines++))
  chars=$((chars + \${#line} + 1))
  read -ra arr <<< "$line"
  words=$((words + \${#arr[@]}))
 done
+
 echo "Lines = $lines"
 echo "Words = $words"
 echo "Characters = $chars"`,
@@ -1723,9 +1726,10 @@ echo "Characters = $chars"`,
       title: "Display All Files in Directory",
       code: `#!/bin/bash
 read -p "Enter directory: " dir
+
 if [[ -d "$dir" ]]; then
  for f in "$dir"/*; do
- [[ -f "$f" ]] && echo "$(basename "$f")"
+  [[ -f "$f" ]] && echo "$(basename "$f")"
  done
 else
  echo "Directory not found"
@@ -1737,9 +1741,10 @@ fi`,
       title: "Files with Read, Write and Execute Permissions",
       code: `#!/bin/bash
 read -p "Enter directory: " dir
+
 if [[ -d "$dir" ]]; then
  for f in "$dir"/*; do
- [[ -f "$f" && -r "$f" && -w "$f" && -x "$f" ]] && echo "$(basename "$f")"
+  [[ -f "$f" && -r "$f" && -w "$f" && -x "$f" ]] && echo "$(basename "$f")"
  done
 else
  echo "Directory not found"
@@ -1751,6 +1756,7 @@ fi`,
       title: "Check Leap Year",
       code: `#!/bin/bash
 read -p "Enter year: " y
+
 if (( y%400==0 || (y%4==0 && y%100!=0) )); then
  echo "$y is a Leap Year"
 else
@@ -1765,6 +1771,7 @@ fi`,
 read -p "Enter first number: " a
 read -p "Enter operator (+ - * /): " op
 read -p "Enter second number: " b
+
 case "$op" in
  +) echo "Result = $((a+b))" ;;
  -) echo "Result = $((a-b))" ;;
@@ -1779,13 +1786,21 @@ esac`,
       title: "Count Positive, Negative and Zero",
       code: `#!/bin/bash
 read -p "Enter numbers separated by spaces: " -a a
-p=0; n=0; z=0
+
+p=0
+n=0
+z=0
+
 for x in "\${a[@]}"; do
- if ((x>0)); then ((p++))
- elif ((x<0)); then ((n++))
- else ((z++))
+ if ((x>0)); then
+  ((p++))
+ elif ((x<0)); then
+  ((n++))
+ else
+  ((z++))
  fi
 done
+
 echo "Positive = $p"
 echo "Negative = $n"
 echo "Zero = $z"`,
@@ -1796,6 +1811,7 @@ echo "Zero = $z"`,
       title: "Check Valid Triangle",
       code: `#!/bin/bash
 read -p "Enter three angles: " a b c
+
 if ((a>0 && b>0 && c>0 && a+b+c==180)); then
  echo "Valid Triangle"
 else
@@ -1808,10 +1824,13 @@ fi`,
       title: "Factorial",
       code: `#!/bin/bash
 read -p "Enter a non-negative integer: " n
+
 fact=1
+
 for ((i=2; i<=n; i++)); do
  fact=$((fact*i))
 done
+
 echo "Factorial = $fact"`,
     },
 
@@ -1820,6 +1839,7 @@ echo "Factorial = $fact"`,
       title: "Multiplication Table",
       code: `#!/bin/bash
 read -p "Enter number: " n
+
 for ((i=1; i<=10; i++)); do
  echo "$n x $i = $((n*i))"
 done`,
@@ -1830,17 +1850,23 @@ done`,
       title: "Count Digits and Sum Digits",
       code: `#!/bin/bash
 read -p "Enter an integer: " n
+
 n=\${n#-}
+
 if (( n==0 )); then
- count=1; sum=0
+ count=1
+ sum=0
 else
- count=0; sum=0
+ count=0
+ sum=0
+
  while ((n>0)); do
- sum=$((sum+n%10))
- count=$((count+1))
- n=$((n/10))
+  sum=$((sum+n%10))
+  count=$((count+1))
+  n=$((n/10))
  done
 fi
+
 echo "Number of digits = $count"
 echo "Sum of digits = $sum"`,
     },
@@ -1850,14 +1876,19 @@ echo "Sum of digits = $sum"`,
       title: "Fibonacci Series",
       code: `#!/bin/bash
 read -p "Enter n: " n
-a=0; b=1
+
+a=0
+b=1
+
 printf "Fibonacci: "
+
 for ((i=0; i<n; i++)); do
  printf "%d " "$a"
  fn=$((a+b))
  a=$b
  b=$fn
 done
+
 echo`,
     },
 
@@ -1866,10 +1897,13 @@ echo`,
       title: "Reverse a String",
       code: `#!/bin/bash
 read -r -p "Enter a string: " s
+
 rev=""
+
 for ((i=\${#s}-1; i>=0; i--)); do
  rev+="\${s:i:1}"
 done
+
 echo "Reverse = $rev"`,
     },
 
@@ -1878,10 +1912,13 @@ echo "Reverse = $rev"`,
       title: "String Palindrome",
       code: `#!/bin/bash
 read -r -p "Enter a string: " s
+
 rev=""
+
 for ((i=\${#s}-1; i>=0; i--)); do
  rev+="\${s:i:1}"
 done
+
 if [[ "$s" == "$rev" ]]; then
  echo "Palindrome"
 else
@@ -1890,9 +1927,9 @@ fi`,
     },
   ];
 
-  /* =========================
-     PROGRAM VIEW
-     ========================= */
+  // =========================
+  // PROGRAM VIEW
+  // =========================
 
   if (selectedProgram) {
     const isShell = selectedProgram.type === "shell";
@@ -2027,9 +2064,9 @@ fi`,
     );
   }
 
-  /* =========================
-     MAIN WEBSITE
-     ========================= */
+  // =========================
+  // MAIN WEBSITE
+  // =========================
 
   return (
     <div className="app">
