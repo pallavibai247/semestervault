@@ -4,7 +4,6 @@ import "./App.css";
 function App() {
   const [semester, setSemester] = useState("3rd Semester");
   const [selectedProgram, setSelectedProgram] = useState(null);
-  const [selectedSubject, setSelectedSubject] = useState(null);
 
   const subjects = {
     "3rd Semester": [
@@ -16,16 +15,19 @@ function App() {
       "DBMS Lab",
       "Shell Lab",
     ],
+
     "4th Semester": [
       "Subject 1",
       "Subject 2",
       "Subject 3",
     ],
+
     "5th Semester": [
       "Subject 1",
       "Subject 2",
       "Subject 3",
     ],
+
     "6th Semester": [
       "Subject 1",
       "Subject 2",
@@ -33,46 +35,47 @@ function App() {
     ],
   };
 
-  // =========================================================
-  // JAVA LAB PROGRAMS 1 - 10
-  // Earlier uploaded Java programs
-  // =========================================================
+  const openNote = (file) => {
+    window.open(file, "_blank");
+  };
 
-  const javaPrograms1to10 = [
+  const copyCode = async (code) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      alert("Code copied successfully!");
+    } catch {
+      alert("Unable to copy code.");
+    }
+  };
+
+  /* =========================
+     JAVA LAB PROGRAMS 1 - 20
+     ========================= */
+
+  const javaLabPrograms = [
     {
       number: 1,
       title:
-        "Write a program to find factorial of list of numbers reading input as command line argument.",
+        "Write a program to find factorial of list of number reading input as command line argument.",
       code: `public class Factorial {
+
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            System.out.println("Please enter numbers as command line arguments.");
+            System.out.println("Please provide numbers as command line arguments.");
             return;
         }
 
-        for (String value : args) {
-            try {
-                int n = Integer.parseInt(value);
+        for (int i = 0; i < args.length; i++) {
 
-                if (n < 0) {
-                    System.out.println(
-                        "Factorial is not possible for negative number: " + n
-                    );
-                    continue;
-                }
+            int num = Integer.parseInt(args[i]);
+            long fact = 1;
 
-                long fact = 1;
-
-                for (int i = 1; i <= n; i++) {
-                    fact = fact * i;
-                }
-
-                System.out.println("Factorial of " + n + " = " + fact);
-
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid number: " + value);
+            for (int j = 1; j <= num; j++) {
+                fact *= j;
             }
+
+            System.out.println("Factorial of " + num + " = " + fact);
         }
     }
 }`,
@@ -80,10 +83,12 @@ function App() {
 
     {
       number: 2,
-      title: "Write a program to display all prime numbers between two limits.",
+      title:
+        "Write a program to display all prime numbers between two limits.",
       code: `import java.util.Scanner;
 
-public class PrimeNumbers {
+public class PrimeRange {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -94,25 +99,27 @@ public class PrimeNumbers {
         System.out.print("Enter upper limit: ");
         int upper = sc.nextInt();
 
-        System.out.println("Prime numbers are:");
+        System.out.println(
+            "Prime numbers between " + lower + " and " + upper + " are:"
+        );
 
-        for (int n = lower; n <= upper; n++) {
+        for (int num = lower; num <= upper; num++) {
 
-            if (n < 2) {
+            if (num <= 1) {
                 continue;
             }
 
-            boolean prime = true;
+            int count = 0;
 
-            for (int i = 2; i * i <= n; i++) {
-                if (n % i == 0) {
-                    prime = false;
-                    break;
+            for (int i = 1; i <= num; i++) {
+
+                if (num % i == 0) {
+                    count++;
                 }
             }
 
-            if (prime) {
-                System.out.print(n + " ");
+            if (count == 2) {
+                System.out.print(num + " ");
             }
         }
 
@@ -124,63 +131,80 @@ public class PrimeNumbers {
     {
       number: 3,
       title:
-        "Write a program to sort list of elements in ascending and descending order and show exception handling.",
+        "Write a program to sort list of elements in ascending and descending order and show the exception handling.",
       code: `import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Sorting {
+public class SortArrayExample {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
         try {
-            System.out.print("Enter number of elements: ");
+
+            System.out.print("Enter the number of elements: ");
             int n = sc.nextInt();
 
-            if (n <= 0) {
-                System.out.println("Number of elements must be positive.");
-                return;
-            }
+            int[] arr = new int[n];
 
-            int[] a = new int[n];
-
-            System.out.println("Enter elements:");
+            System.out.println("Enter " + n + " elements:");
 
             for (int i = 0; i < n; i++) {
-                a[i] = sc.nextInt();
+                arr[i] = sc.nextInt();
             }
 
-            // Ascending order
+            System.out.print("\\nOriginal Array: ");
+
+            for (int i = 0; i < n; i++) {
+                System.out.print(arr[i] + " ");
+            }
+
             for (int i = 0; i < n - 1; i++) {
+
                 for (int j = i + 1; j < n; j++) {
 
-                    if (a[i] > a[j]) {
-                        int temp = a[i];
-                        a[i] = a[j];
-                        a[j] = temp;
+                    if (arr[i] > arr[j]) {
+
+                        int temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
                     }
                 }
             }
 
-            System.out.print("Ascending order: ");
+            System.out.print("\\nSorted in Ascending Order: ");
 
             for (int i = 0; i < n; i++) {
-                System.out.print(a[i] + " ");
+                System.out.print(arr[i] + " ");
             }
 
-            System.out.print("\\nDescending order: ");
+            System.out.print("\\nSorted in Descending Order: ");
 
             for (int i = n - 1; i >= 0; i--) {
-                System.out.print(a[i] + " ");
+                System.out.print(arr[i] + " ");
             }
 
-            System.out.println();
-
         } catch (InputMismatchException e) {
-            System.out.println("Exception: Please enter integers only.");
-        }
 
-        sc.close();
+            System.out.println(
+                "\\nError: Please enter valid integer values only!"
+            );
+
+        } catch (Exception e) {
+
+            System.out.println(
+                "\\nAn unexpected error occurred: " + e.getMessage()
+            );
+
+        } finally {
+
+            System.out.println(
+                "\\n\\nProgram execution completed."
+            );
+
+            sc.close();
+        }
     }
 }`,
     },
@@ -191,50 +215,69 @@ public class Sorting {
       code: `import java.util.Scanner;
 
 public class StringOperations {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter first string: ");
-        String s1 = sc.nextLine();
+        String str1 = sc.nextLine();
 
         System.out.print("Enter second string: ");
-        String s2 = sc.nextLine();
-
-        System.out.println("\\nString Operations");
-
-        System.out.println("Length of first string: " + s1.length());
-        System.out.println("Length of second string: " + s2.length());
-
-        System.out.println("Concatenation: " + s1.concat(s2));
-
-        System.out.println("Equals: " + s1.equals(s2));
+        String str2 = sc.nextLine();
 
         System.out.println(
-            "Equals ignoring case: " + s1.equalsIgnoreCase(s2)
+            "\\nLength of first string: " + str1.length()
         );
 
-        System.out.println("First string uppercase: " + s1.toUpperCase());
+        System.out.println(
+            "Length of second string: " + str2.length()
+        );
 
-        System.out.println("Second string lowercase: " + s2.toLowerCase());
+        String concat = str1 + str2;
 
-        if (!s1.isEmpty()) {
-            System.out.println("First character: " + s1.charAt(0));
-        }
+        System.out.println(
+            "\\nConcatenation of both strings: " + concat
+        );
 
-        if (!s2.isEmpty()) {
+        if (str1.length() > 0) {
+
             System.out.println(
-                "Last character: " + s2.charAt(s2.length() - 1)
+                "First character of first string: "
+                + str1.charAt(0)
             );
         }
 
-        System.out.println("CompareTo: " + s1.compareTo(s2));
+        if (str2.length() > 0) {
 
-        if (s1.length() >= 3) {
             System.out.println(
-                "Substring of first string: " + s1.substring(0, 3)
+                "Last character of second string: "
+                + str2.charAt(str2.length() - 1)
             );
         }
+
+        if (str1.length() >= 3) {
+
+            System.out.println(
+                "\\nSubstring of first string (0-3): "
+                + str1.substring(0, 3)
+            );
+        }
+
+        System.out.println(
+            "\\nString comparison using equals(): "
+            + str1.equals(str2)
+        );
+
+        System.out.println(
+            "\\nUppercase of first string: "
+            + str1.toUpperCase()
+        );
+
+        System.out.println(
+            "Lowercase of second string: "
+            + str2.toLowerCase()
+        );
 
         sc.close();
     }
@@ -243,13 +286,14 @@ public class StringOperations {
 
     {
       number: 5,
-      title: "Write a program to find area of geometrical figures using methods.",
+      title:
+        "Write a program to find area of geometrical figures using method.",
       code: `import java.util.Scanner;
 
 public class GeometryArea {
 
     static double areaCircle(double radius) {
-        return Math.PI * radius * radius;
+        return 3.14159 * radius * radius;
     }
 
     static double areaRectangle(double length, double width) {
@@ -264,50 +308,80 @@ public class GeometryArea {
 
         Scanner sc = new Scanner(System.in);
 
+        System.out.println(
+            "Choose the figure to calculate area:"
+        );
+
         System.out.println("1. Circle");
         System.out.println("2. Rectangle");
         System.out.println("3. Triangle");
 
-        System.out.print("Enter your choice: ");
+        System.out.print("Enter your choice (1-3): ");
         int choice = sc.nextInt();
 
         switch (choice) {
 
             case 1:
-                System.out.print("Enter radius: ");
+
+                System.out.print(
+                    "Enter radius of circle: "
+                );
+
                 double r = sc.nextDouble();
 
                 System.out.println(
-                    "Area of Circle = " + areaCircle(r)
+                    "Area of Circle: " + areaCircle(r)
                 );
+
                 break;
 
             case 2:
-                System.out.print("Enter length: ");
+
+                System.out.print(
+                    "Enter length of rectangle: "
+                );
+
                 double l = sc.nextDouble();
 
-                System.out.print("Enter width: ");
+                System.out.print(
+                    "Enter width of rectangle: "
+                );
+
                 double w = sc.nextDouble();
 
                 System.out.println(
-                    "Area of Rectangle = " + areaRectangle(l, w)
+                    "Area of Rectangle: "
+                    + areaRectangle(l, w)
                 );
+
                 break;
 
             case 3:
-                System.out.print("Enter base: ");
+
+                System.out.print(
+                    "Enter base of triangle: "
+                );
+
                 double b = sc.nextDouble();
 
-                System.out.print("Enter height: ");
+                System.out.print(
+                    "Enter height of triangle: "
+                );
+
                 double h = sc.nextDouble();
 
                 System.out.println(
-                    "Area of Triangle = " + areaTriangle(b, h)
+                    "Area of Triangle: "
+                    + areaTriangle(b, h)
                 );
+
                 break;
 
             default:
-                System.out.println("Invalid choice.");
+
+                System.out.println(
+                    "Invalid choice! Please enter 1, 2, or 3."
+                );
         }
 
         sc.close();
@@ -326,34 +400,37 @@ public class GeometryArea {
     double marks;
 
     StudentMarks() {
+
         id = 0;
         name = "Unknown";
         marks = 0.0;
     }
 
     StudentMarks(int i) {
+
         id = i;
-        name = "Not Given";
+        name = "Not given";
         marks = 0.0;
     }
 
     StudentMarks(int i, String n) {
+
         id = i;
         name = n;
         marks = 0.0;
     }
 
     StudentMarks(int i, String n, double m) {
+
         id = i;
         name = n;
         marks = m;
     }
 
     void display() {
+
         System.out.println(
-            "ID: " + id +
-            ", Name: " + name +
-            ", Marks: " + marks
+            id + " " + name + " " + marks
         );
     }
 
@@ -386,91 +463,110 @@ public class GeometryArea {
 import java.awt.*;
 import java.awt.event.*;
 
-public class StudentReportApplet
-        extends Applet
+public class StudentReportApplet extends Applet
         implements ActionListener {
 
-    TextField nameField;
-    TextField usnField;
-    TextField marks1Field;
-    TextField marks2Field;
-    TextField marks3Field;
+    Label l1, l2, l3, l4, l5;
+    TextField t1, t2, t3, t4, t5;
+    Button b1;
 
-    Button button;
-
-    String result = "";
+    int total;
+    double percentage;
 
     public void init() {
 
         setLayout(new GridLayout(7, 2));
 
-        add(new Label("Student Name:"));
-        nameField = new TextField();
-        add(nameField);
+        l1 = new Label("Student Name:");
+        t1 = new TextField(20);
 
-        add(new Label("USN:"));
-        usnField = new TextField();
-        add(usnField);
+        l2 = new Label("USN:");
+        t2 = new TextField(20);
 
-        add(new Label("Subject 1 Marks:"));
-        marks1Field = new TextField();
-        add(marks1Field);
+        l3 = new Label("Subject 1 Marks:");
+        t3 = new TextField(5);
 
-        add(new Label("Subject 2 Marks:"));
-        marks2Field = new TextField();
-        add(marks2Field);
+        l4 = new Label("Subject 2 Marks:");
+        t4 = new TextField(5);
 
-        add(new Label("Subject 3 Marks:"));
-        marks3Field = new TextField();
-        add(marks3Field);
+        l5 = new Label("Subject 3 Marks:");
+        t5 = new TextField(5);
 
-        button = new Button("Generate Report");
-        button.addActionListener(this);
-        add(button);
+        b1 = new Button("Generate Report");
+
+        b1.addActionListener(this);
+
+        add(l1);
+        add(t1);
+
+        add(l2);
+        add(t2);
+
+        add(l3);
+        add(t3);
+
+        add(l4);
+        add(t4);
+
+        add(l5);
+        add(t5);
+
+        add(b1);
     }
 
     public void actionPerformed(ActionEvent e) {
 
-        try {
-            int m1 = Integer.parseInt(marks1Field.getText());
-            int m2 = Integer.parseInt(marks2Field.getText());
-            int m3 = Integer.parseInt(marks3Field.getText());
+        int m1 = Integer.parseInt(t3.getText());
+        int m2 = Integer.parseInt(t4.getText());
+        int m3 = Integer.parseInt(t5.getText());
 
-            int total = m1 + m2 + m3;
-            double percentage = total / 3.0;
+        total = m1 + m2 + m3;
 
-            result =
-                "Name: " + nameField.getText() +
-                "\\nUSN: " + usnField.getText() +
-                "\\nTotal: " + total +
-                "\\nPercentage: " + percentage;
+        percentage = total / 3.0;
 
-            repaint();
-
-        } catch (NumberFormatException ex) {
-            result = "Enter valid marks.";
-            repaint();
-        }
+        repaint();
     }
 
     public void paint(Graphics g) {
 
-        super.paint(g);
+        g.drawString(
+            "----- Student Report -----",
+            50, 250
+        );
 
-        int y = 250;
+        g.drawString(
+            "Name : " + t1.getText(),
+            50, 270
+        );
 
-        for (String line : result.split("\\\\n")) {
-            g.drawString(line, 50, y);
-            y += 20;
-        }
+        g.drawString(
+            "USN  : " + t2.getText(),
+            50, 290
+        );
+
+        g.drawString(
+            "Total Marks : " + total,
+            50, 310
+        );
+
+        g.drawString(
+            "Percentage : "
+            + String.format("%.2f", percentage)
+            + "%",
+            50, 330
+        );
     }
 }`,
       html: `<html>
 <body>
+
+<h2>Student Report Applet</h2>
+
 <applet code="StudentReportApplet.class"
         width="500"
         height="400">
 </applet>
+
 </body>
 </html>`,
     },
@@ -481,52 +577,67 @@ public class StudentReportApplet
         "Write a program to calculate bonus for different departments using method overriding.",
       code: `abstract class Department {
 
-    double salary;
+    double salary, bonus, netsalary;
 
-    Department(double salary) {
-        this.salary = salary;
-    }
+    abstract void calbonus(double salary);
 
-    abstract double calculateBonus();
-
-    void display() {
-        System.out.println(
-            "Salary = " + salary +
-            ", Bonus = " + calculateBonus()
-        );
-    }
+    abstract void display();
 }
 
 class Accounts extends Department {
 
-    Accounts(double salary) {
-        super(salary);
+    public void calbonus(double sal) {
+
+        salary = sal;
+        bonus = sal * 0.20;
+        netsalary = salary + bonus;
     }
 
-    double calculateBonus() {
-        return salary * 0.20;
+    void display() {
+
+        System.out.println(
+            "Accounts\\t" + salary
+            + "\\t\\t" + bonus
+            + "\\t" + netsalary
+        );
     }
 }
 
 class Sales extends Department {
 
-    Sales(double salary) {
-        super(salary);
+    public void calbonus(double sal) {
+
+        salary = sal;
+        bonus = sal * 0.15;
+        netsalary = salary + bonus;
     }
 
-    double calculateBonus() {
-        return salary * 0.15;
+    void display() {
+
+        System.out.println(
+            "Sales\\t\\t" + salary
+            + "\\t\\t" + bonus
+            + "\\t" + netsalary
+        );
     }
 }
 
 class Production extends Department {
 
-    Production(double salary) {
-        super(salary);
+    public void calbonus(double sal) {
+
+        salary = sal;
+        bonus = sal * 0.10;
+        netsalary = salary + bonus;
     }
 
-    double calculateBonus() {
-        return salary * 0.10;
+    void display() {
+
+        System.out.println(
+            "Production\\t" + salary
+            + "\\t\\t" + bonus
+            + "\\t" + netsalary
+        );
     }
 }
 
@@ -534,75 +645,78 @@ public class Bonus {
 
     public static void main(String[] args) {
 
-        Department accounts =
-            new Accounts(15000);
+        double basic[] = {
+            15000, 20000, 25000
+        };
 
-        Department sales =
-            new Sales(20000);
+        Department d[] =
+            new Department[3];
 
-        Department production =
-            new Production(25000);
+        d[0] = new Accounts();
+        d[1] = new Sales();
+        d[2] = new Production();
 
-        System.out.println("Accounts Department:");
-        accounts.display();
+        System.out.println(
+            "Department\\tBasic salary\\tBonus\\tSalary"
+        );
 
-        System.out.println("Sales Department:");
-        sales.display();
+        System.out.println(
+            "------------------------------------------------"
+        );
 
-        System.out.println("Production Department:");
-        production.display();
+        for (int i = 0; i < basic.length; i++) {
+
+            d[i].calbonus(basic[i]);
+            d[i].display();
+        }
     }
 }`,
     },
 
     {
       number: 9,
-      title: "Write an applet program to animate a ball.",
+      title:
+        "Write a program to implement thread, applets and graphics by implementing animation of ball moving.",
       code: `import java.applet.Applet;
 import java.awt.*;
 
 public class BallAnimation
-        extends Applet
-        implements Runnable {
+        extends Applet implements Runnable {
 
-    int x = 0;
-    int y = 50;
+    int x = 0, y = 50;
     int dx = 5;
 
     Thread t;
 
     public void init() {
-        setBackground(Color.WHITE);
+
+        setBackground(Color.white);
     }
 
     public void start() {
 
-        if (t == null) {
-            t = new Thread(this);
-            t.start();
-        }
-    }
-
-    public void stop() {
-        t = null;
+        t = new Thread(this);
+        t.start();
     }
 
     public void run() {
 
-        while (t != null) {
+        while (true) {
 
-            x = x + dx;
+            x += dx;
 
-            if (x > getWidth() - 30 || x < 0) {
+            if (x > getWidth() - 50 || x < 0) {
                 dx = -dx;
             }
 
             repaint();
 
             try {
+
                 Thread.sleep(50);
+
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+
                 break;
             }
         }
@@ -610,18 +724,31 @@ public class BallAnimation
 
     public void paint(Graphics g) {
 
-        super.paint(g);
+        g.setColor(Color.red);
 
-        g.setColor(Color.RED);
-        g.fillOval(x, y, 30, 30);
+        g.fillOval(x, y, 50, 50);
     }
 }`,
+      html: `<html>
+<body>
+
+<h2>Ball Animation Applet</h2>
+
+<applet code="BallAnimation.class"
+        width="500"
+        height="400">
+</applet>
+
+</body>
+</html>`,
+      commands: `javac BallAnimation.java
+appletviewer BallAnimation.html`,
     },
 
     {
       number: 10,
       title:
-        "Write a program to demonstrate mouse and keyboard events.",
+        "Write a program to implement mouse events and keyboard events.",
       code: `import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
@@ -633,94 +760,128 @@ public class MouseKeyboardEvents
                    KeyListener {
 
     String msg = "";
-    int x = 20;
-    int y = 50;
+
+    int x = 10, y = 20;
 
     public void init() {
-
-        setBackground(Color.YELLOW);
-        setForeground(Color.BLUE);
 
         addMouseListener(this);
         addMouseMotionListener(this);
         addKeyListener(this);
 
-        setFocusable(true);
+        setBackground(Color.yellow);
+        setForeground(Color.blue);
+
         requestFocus();
-    }
-
-    public void mouseClicked(MouseEvent e) {
-        msg = "Mouse Clicked";
-        x = e.getX();
-        y = e.getY();
-        repaint();
-    }
-
-    public void mousePressed(MouseEvent e) {
-        msg = "Mouse Pressed";
-        repaint();
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        msg = "Mouse Released";
-        repaint();
-    }
-
-    public void mouseEntered(MouseEvent e) {
-        msg = "Mouse Entered";
-        repaint();
-    }
-
-    public void mouseExited(MouseEvent e) {
-        msg = "Mouse Exited";
-        repaint();
-    }
-
-    public void mouseDragged(MouseEvent e) {
-        msg = "Mouse Dragged";
-        x = e.getX();
-        y = e.getY();
-        repaint();
-    }
-
-    public void mouseMoved(MouseEvent e) {
-        msg = "Mouse Moved";
-        x = e.getX();
-        y = e.getY();
-        repaint();
-    }
-
-    public void keyPressed(KeyEvent e) {
-        msg = "Key Pressed: " + e.getKeyChar();
-        repaint();
-    }
-
-    public void keyReleased(KeyEvent e) {
-        msg = "Key Released";
-        repaint();
-    }
-
-    public void keyTyped(KeyEvent e) {
-        msg = "Key Typed: " + e.getKeyChar();
-        repaint();
     }
 
     public void paint(Graphics g) {
 
-        super.paint(g);
-
         g.drawString(msg, x, y);
     }
+
+    public void mouseClicked(MouseEvent e) {
+
+        msg = "Mouse Clicked";
+
+        x = e.getX();
+        y = e.getY();
+
+        repaint();
+    }
+
+    public void mousePressed(MouseEvent e) {
+
+        msg = "Mouse Pressed";
+
+        repaint();
+    }
+
+    public void mouseReleased(MouseEvent e) {
+
+        msg = "Mouse Released";
+
+        repaint();
+    }
+
+    public void mouseEntered(MouseEvent e) {
+
+        msg = "Mouse Entered Applet Area";
+
+        repaint();
+    }
+
+    public void mouseExited(MouseEvent e) {
+
+        msg = "Mouse Exited Applet Area";
+
+        repaint();
+    }
+
+    public void mouseMoved(MouseEvent e) {
+
+        msg = "Mouse Moved";
+
+        x = e.getX();
+        y = e.getY();
+
+        repaint();
+    }
+
+    public void mouseDragged(MouseEvent e) {
+
+        msg = "Mouse Dragged";
+
+        x = e.getX();
+        y = e.getY();
+
+        repaint();
+    }
+
+    public void keyPressed(KeyEvent e) {
+
+        msg = "Key Pressed: "
+              + e.getKeyChar();
+
+        repaint();
+    }
+
+    public void keyReleased(KeyEvent e) {
+
+        msg = "Key Released: "
+              + e.getKeyChar();
+
+        repaint();
+    }
+
+    public void keyTyped(KeyEvent e) {
+
+        msg = "Key Typed: "
+              + e.getKeyChar();
+
+        repaint();
+    }
 }`,
+      html: `<html>
+<body>
+
+<h2>Mouse Keyboard Events Applet</h2>
+
+<applet code="MouseKeyboardEvents.class"
+        width="500"
+        height="400">
+</applet>
+
+</body>
+</html>`,
+      commands: `javac MouseKeyboardEvents.java
+appletviewer MouseKeyboardEvents.html`,
     },
-  ];
 
-  // =========================================================
-  // JAVA PART B PROGRAMS 11 - 20
-  // From JavaProgrammingLab_SEP.pdf
-  // =========================================================
+    /* =========================
+       JAVA PART B - 11 TO 20
+       ========================= */
 
-  const javaPrograms11to20 = [
     {
       number: 11,
       title:
@@ -735,13 +896,11 @@ class SwitchEg {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(
-            "Enter a number between 1 and 5:"
-        );
+        System.out.println("Enter a number between 1 and 5:");
 
         a = sc.nextInt();
 
-        switch (a) {
+        switch(a) {
 
             case 1:
                 System.out.println("You entered One");
@@ -768,8 +927,6 @@ class SwitchEg {
                     "You entered a number outside the range of 1 to 5"
                 );
         }
-
-        sc.close();
     }
 }`,
     },
@@ -791,33 +948,23 @@ class fibo {
 
         int n = sc.nextInt();
 
-        if (n <= 0) {
-            System.out.println(
-                "Please enter a positive number."
-            );
-            sc.close();
-            return;
-        }
-
-        int a = 0;
-        int b = 1;
+        int a = 0, b = 1, c;
 
         System.out.print(
-            "Fibonacci Series: "
+            "Fibonacci Series: " + a + " " + b
         );
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 2; i < n; i++) {
 
-            System.out.print(a + " ");
+            c = a + b;
 
-            int c = a + b;
+            System.out.print(" " + c);
+
             a = b;
             b = c;
         }
 
         System.out.println();
-
-        sc.close();
     }
 }`,
     },
@@ -834,14 +981,14 @@ public class Matproduct {
         Scanner sc = new Scanner(System.in);
 
         System.out.print(
-            "Enter rows and columns for first matrix: "
+            "Enter the number of rows and columns for the first matrix: "
         );
 
         int r1 = sc.nextInt();
         int c1 = sc.nextInt();
 
         System.out.print(
-            "Enter rows and columns for second matrix: "
+            "Enter the number of rows and columns for the second matrix: "
         );
 
         int r2 = sc.nextInt();
@@ -853,7 +1000,6 @@ public class Matproduct {
                 "Matrix multiplication not possible."
             );
 
-            sc.close();
             return;
         }
 
@@ -885,12 +1031,13 @@ public class Matproduct {
             }
         }
 
-        int[][] product =
-            new int[r1][c2];
+        int[][] product = new int[r1][c2];
 
         for (int i = 0; i < r1; i++) {
 
             for (int j = 0; j < c2; j++) {
+
+                product[i][j] = 0;
 
                 for (int k = 0; k < c1; k++) {
 
@@ -915,8 +1062,6 @@ public class Matproduct {
 
             System.out.println();
         }
-
-        sc.close();
     }
 }`,
     },
@@ -924,7 +1069,7 @@ public class Matproduct {
     {
       number: 14,
       title:
-        "Write a program to accept N strings and sort in ascending order.",
+        "Write a program to accept N string and sort in ascending order.",
       code: `import java.util.Scanner;
 
 class StringSort {
@@ -939,8 +1084,7 @@ class StringSort {
 
         int n = sc.nextInt();
 
-        String[] strings =
-            new String[n];
+        String[] strings = new String[n];
 
         System.out.println(
             "Enter the strings:"
@@ -960,7 +1104,7 @@ class StringSort {
             System.out.println(str);
         }
 
-        // Sort strings in ascending order
+        // Sort the strings in ascending order
 
         for (int i = 0; i < n - 1; i++) {
 
@@ -985,8 +1129,6 @@ class StringSort {
 
             System.out.println(str);
         }
-
-        sc.close();
     }
 }`,
     },
@@ -1019,16 +1161,14 @@ class StringSort {
 
     public static void main(String[] args) {
 
-        ClassDemo obj1 =
-            new ClassDemo();
+        ClassDemo obj1 = new ClassDemo();
 
         obj1.var1 = 10;
         obj1.var2 = 20;
 
         obj1.method1();
 
-        ClassDemo obj2 =
-            new ClassDemo();
+        ClassDemo obj2 = new ClassDemo();
 
         obj2.var1 = 30;
         obj2.var2 = 40;
@@ -1123,11 +1263,9 @@ public class MultiThread {
 
     public static void main(String[] args) {
 
-        ThreadA threadA =
-            new ThreadA();
+        ThreadA threadA = new ThreadA();
 
-        ThreadB threadB =
-            new ThreadB();
+        ThreadB threadB = new ThreadB();
 
         threadA.start();
 
@@ -1145,8 +1283,6 @@ public class MultiThread {
                 "Thread interrupted: "
                 + e.getMessage()
             );
-
-            Thread.currentThread().interrupt();
         }
 
         System.out.println(
@@ -1175,12 +1311,16 @@ public class MultiThread {
 import java.awt.*;
 import java.awt.event.*;
 
+/*
+<applet code="SumApplet" width=400 height=200>
+</applet>
+*/
+
 public class SumApplet
         extends Applet
         implements ActionListener {
 
-    TextField num1Field;
-    TextField num2Field;
+    TextField num1Field, num2Field;
 
     Button sumButton;
 
@@ -1190,33 +1330,29 @@ public class SumApplet
 
         setLayout(new GridLayout(4, 2));
 
-        add(
-            new Label("Enter first number:")
-        );
+        add(new Label("Enter first number:"));
 
-        num1Field =
-            new TextField(10);
+        num1Field = new TextField(10);
 
         add(num1Field);
 
-        add(
-            new Label("Enter second number:")
-        );
+        add(new Label("Enter second number:"));
 
-        num2Field =
-            new TextField(10);
+        num2Field = new TextField(10);
 
         add(num2Field);
 
-        sumButton =
-            new Button("Calculate Sum");
+        sumButton = new Button(
+            "Calculate Sum"
+        );
 
         add(sumButton);
 
         sumButton.addActionListener(this);
 
-        resultLabel =
-            new Label("Sum will be displayed here");
+        resultLabel = new Label(
+            "Sum will be displayed here"
+        );
 
         add(resultLabel);
     }
@@ -1249,34 +1385,30 @@ public class SumApplet
         }
     }
 }`,
-      html: `<html>
-<body>
-<applet code="SumApplet.class"
-        width="400"
-        height="200">
-</applet>
-</body>
-</html>`,
     },
 
     {
       number: 19,
-      title: "Write an applet program to draw human face.",
+      title:
+        "Write an applet program to draw human face.",
       code: `import java.applet.Applet;
 import java.awt.*;
+
+/*
+<applet code="Face" width=300 height=350>
+</applet>
+*/
 
 public class Face extends Applet {
 
     public void paint(Graphics g) {
 
-        // Face outline
         g.setColor(Color.YELLOW);
 
         g.fillOval(
             50, 50, 200, 250
         );
 
-        // Eyes
         g.setColor(Color.WHITE);
 
         g.fillOval(
@@ -1287,7 +1419,6 @@ public class Face extends Applet {
             170, 120, 40, 25
         );
 
-        // Pupils
         g.setColor(Color.BLACK);
 
         g.fillOval(
@@ -1298,7 +1429,6 @@ public class Face extends Applet {
             185, 130, 10, 10
         );
 
-        // Eyebrows
         g.drawArc(
             85, 110, 50, 10, 0, 180
         );
@@ -1307,21 +1437,18 @@ public class Face extends Applet {
             165, 110, 50, 10, 0, 180
         );
 
-        // Nose
         g.setColor(Color.ORANGE);
 
         g.fillOval(
             140, 160, 20, 30
         );
 
-        // Mouth
         g.setColor(Color.RED);
 
         g.drawArc(
             110, 200, 80, 40, 0, -180
         );
 
-        // Ears
         g.setColor(Color.YELLOW);
 
         g.fillOval(
@@ -1333,29 +1460,29 @@ public class Face extends Applet {
         );
     }
 }`,
-      html: `<html>
-<body>
-<applet code="Face.class"
-        width="300"
-        height="350">
-</applet>
-</body>
-</html>`,
     },
 
     {
       number: 20,
-      title: "Write an applet program to create a Bar Chart.",
+      title:
+        "Write an applet program to create a Bar Charts.",
       code: `import java.applet.Applet;
 import java.awt.*;
 
+/*
+<applet code="Barchart" width=400 height=300>
+</applet>
+*/
+
 public class Barchart extends Applet {
 
-    int[] values =
-        {80, 120, 60, 150, 100};
+    int[] values = {
+        80, 120, 60, 150, 100
+    };
 
-    String[] labels =
-        {"A", "B", "C", "D", "E"};
+    String[] labels = {
+        "A", "B", "C", "D", "E"
+    };
 
     Color[] colors = {
         Color.RED,
@@ -1368,12 +1495,13 @@ public class Barchart extends Applet {
     public void paint(Graphics g) {
 
         int x = 50;
+
         int y = 250;
 
         int width = 40;
+
         int gap = 30;
 
-        // Draw axes
         g.drawLine(
             40, 250, 350, 250
         );
@@ -1382,10 +1510,11 @@ public class Barchart extends Applet {
             40, 50, 40, 250
         );
 
-        // Draw bars
-        for (int i = 0;
-             i < values.length;
-             i++) {
+        for (
+            int i = 0;
+            i < values.length;
+            i++
+        ) {
 
             g.setColor(colors[i]);
 
@@ -1415,82 +1544,432 @@ public class Barchart extends Applet {
         }
     }
 }`,
-      html: `<html>
-<body>
-<applet code="Barchart.class"
-        width="400"
-        height="300">
-</applet>
-</body>
-</html>`,
+    },
+
+  ];
+
+  /* =========================
+     SHELL LAB PROGRAMS 1 - 20
+     ========================= */
+
+  const shellPrograms = [
+    {
+      number: 1,
+      title: "Usage of Five Internal Commands",
+      code: `pwd
+Prints the present working directory.
+
+$ pwd
+/home/student
+
+cd
+Changes the current working directory.
+
+$ cd /tmp
+$ pwd
+/tmp
+
+echo
+Displays text or variable values.
+
+$ echo "Hello, Shell Lab!"
+Hello, Shell Lab!
+
+read
+Accepts input from the keyboard and stores it in a variable.
+
+$ read name
+OpenAI
+$ echo "Welcome, $name"
+Welcome, OpenAI
+
+export
+Creates an environment variable that can be inherited by child processes.
+
+$ export COLLEGE="ABC College"
+$ echo "$COLLEGE"
+ABC College`,
+    },
+
+    {
+      number: 2,
+      title: "Usage of Five External Commands",
+      code: `ls
+Lists files and directories.
+
+$ ls -l
+
+cat
+Displays file contents.
+
+$ cat file.txt
+
+grep
+Searches for lines matching a pattern.
+
+$ grep "hello" file.txt
+
+sort
+Sorts lines of text.
+
+$ sort names.txt
+
+date
+Displays the current date and time.
+
+$ date`,
+    },
+
+    {
+      number: 3,
+      title: "Calculate Simple Interest",
+      code: `#!/bin/bash
+read -p "Enter principal: " p
+read -p "Enter rate (%): " r
+read -p "Enter time (years): " t
+si=$(awk -v p="$p" -v r="$r" -v t="$t" 'BEGIN{printf "%.2f", p*r*t/100}')
+echo "Simple Interest = $si"`,
+    },
+
+    {
+      number: 4,
+      title: "Print Prime Numbers Between m and n",
+      code: `#!/bin/bash
+read -p "Enter m: " m
+read -p "Enter n (m<n): " n
+echo "Prime numbers:"
+for ((x=m; x<=n; x++)); do
+ if (( x < 2 )); then continue; fi
+ prime=1
+ for ((d=2; d*d<=x; d++)); do
+  if (( x%d==0 )); then prime=0; break; fi
+ done
+ ((prime)) && printf "%d " "$x"
+done
+echo`,
+    },
+
+    {
+      number: 5,
+      title: "Reverse Number and Check Palindrome",
+      code: `#!/bin/bash
+read -p "Enter a number: " n
+orig=$n
+rev=0
+while (( n > 0 )); do
+ digit=$((n%10))
+ rev=$((rev*10+digit))
+ n=$((n/10))
+done
+echo "Reverse = $rev"
+if (( orig == rev )); then
+ echo "Palindrome"
+else
+ echo "Not Palindrome"
+fi`,
+    },
+
+    {
+      number: 6,
+      title: "Find Maximum and Minimum",
+      code: `#!/bin/bash
+read -p "Enter numbers separated by spaces: " -a a
+max=\${a[0]}
+min=\${a[0]}
+for x in "\${a[@]}"; do
+ ((x>max)) && max=$x
+ ((x<min)) && min=$x
+done
+echo "Maximum = $max"
+echo "Minimum = $min"`,
+    },
+
+    {
+      number: 7,
+      title: "Generate GCD and LCM",
+      code: `#!/bin/bash
+read -p "Enter two integers: " a b
+x=$a
+y=$b
+while (( y != 0 )); do
+ r=$((x%y))
+ x=$y
+ y=$r
+done
+gcd=$x
+lcm=$((a*b/gcd))
+echo "GCD = $gcd"
+echo "LCM = $lcm"`,
+    },
+
+    {
+      number: 8,
+      title: "Count Lines, Words and Characters",
+      code: `#!/bin/bash
+lines=0; words=0; chars=0
+while IFS= read -r line || [[ -n "$line" ]]; do
+ ((lines++))
+ chars=$((chars + \${#line} + 1))
+ read -ra arr <<< "$line"
+ words=$((words + \${#arr[@]}))
+done
+echo "Lines = $lines"
+echo "Words = $words"
+echo "Characters = $chars"`,
+    },
+
+    {
+      number: 9,
+      title: "Display All Files in Directory",
+      code: `#!/bin/bash
+read -p "Enter directory: " dir
+if [[ -d "$dir" ]]; then
+ for f in "$dir"/*; do
+ [[ -f "$f" ]] && echo "$(basename "$f")"
+ done
+else
+ echo "Directory not found"
+fi`,
+    },
+
+    {
+      number: 10,
+      title: "Files with Read, Write and Execute Permissions",
+      code: `#!/bin/bash
+read -p "Enter directory: " dir
+if [[ -d "$dir" ]]; then
+ for f in "$dir"/*; do
+ [[ -f "$f" && -r "$f" && -w "$f" && -x "$f" ]] && echo "$(basename "$f")"
+ done
+else
+ echo "Directory not found"
+fi`,
+    },
+
+    {
+      number: 11,
+      title: "Check Leap Year",
+      code: `#!/bin/bash
+read -p "Enter year: " y
+if (( y%400==0 || (y%4==0 && y%100!=0) )); then
+ echo "$y is a Leap Year"
+else
+ echo "$y is not a Leap Year"
+fi`,
+    },
+
+    {
+      number: 12,
+      title: "Basic Calculator",
+      code: `#!/bin/bash
+read -p "Enter first number: " a
+read -p "Enter operator (+ - * /): " op
+read -p "Enter second number: " b
+case "$op" in
+ +) echo "Result = $((a+b))" ;;
+ -) echo "Result = $((a-b))" ;;
+ \\*) echo "Result = $((a*b))" ;;
+ /) ((b!=0)) && awk -v a="$a" -v b="$b" 'BEGIN{printf "Result = %.2f\\n", a/b}' || echo "Division by zero not allowed" ;;
+ *) echo "Invalid operator" ;;
+esac`,
+    },
+
+    {
+      number: 13,
+      title: "Count Positive, Negative and Zero",
+      code: `#!/bin/bash
+read -p "Enter numbers separated by spaces: " -a a
+p=0; n=0; z=0
+for x in "\${a[@]}"; do
+ if ((x>0)); then ((p++))
+ elif ((x<0)); then ((n++))
+ else ((z++))
+ fi
+done
+echo "Positive = $p"
+echo "Negative = $n"
+echo "Zero = $z"`,
+    },
+
+    {
+      number: 14,
+      title: "Check Valid Triangle",
+      code: `#!/bin/bash
+read -p "Enter three angles: " a b c
+if ((a>0 && b>0 && c>0 && a+b+c==180)); then
+ echo "Valid Triangle"
+else
+ echo "Invalid Triangle"
+fi`,
+    },
+
+    {
+      number: 15,
+      title: "Factorial",
+      code: `#!/bin/bash
+read -p "Enter a non-negative integer: " n
+fact=1
+for ((i=2; i<=n; i++)); do
+ fact=$((fact*i))
+done
+echo "Factorial = $fact"`,
+    },
+
+    {
+      number: 16,
+      title: "Multiplication Table",
+      code: `#!/bin/bash
+read -p "Enter number: " n
+for ((i=1; i<=10; i++)); do
+ echo "$n x $i = $((n*i))"
+done`,
+    },
+
+    {
+      number: 17,
+      title: "Count Digits and Sum Digits",
+      code: `#!/bin/bash
+read -p "Enter an integer: " n
+n=\${n#-}
+if (( n==0 )); then
+ count=1; sum=0
+else
+ count=0; sum=0
+ while ((n>0)); do
+ sum=$((sum+n%10))
+ count=$((count+1))
+ n=$((n/10))
+ done
+fi
+echo "Number of digits = $count"
+echo "Sum of digits = $sum"`,
+    },
+
+    {
+      number: 18,
+      title: "Fibonacci Series",
+      code: `#!/bin/bash
+read -p "Enter n: " n
+a=0; b=1
+printf "Fibonacci: "
+for ((i=0; i<n; i++)); do
+ printf "%d " "$a"
+ fn=$((a+b))
+ a=$b
+ b=$fn
+done
+echo`,
+    },
+
+    {
+      number: 19,
+      title: "Reverse a String",
+      code: `#!/bin/bash
+read -r -p "Enter a string: " s
+rev=""
+for ((i=\${#s}-1; i>=0; i--)); do
+ rev+="\${s:i:1}"
+done
+echo "Reverse = $rev"`,
+    },
+
+    {
+      number: 20,
+      title: "String Palindrome",
+      code: `#!/bin/bash
+read -r -p "Enter a string: " s
+rev=""
+for ((i=\${#s}-1; i>=0; i--)); do
+ rev+="\${s:i:1}"
+done
+if [[ "$s" == "$rev" ]]; then
+ echo "Palindrome"
+else
+ echo "Not Palindrome"
+fi`,
     },
   ];
 
-  // Combine Java 1-10 and Part B 11-20
-  const javaLabPrograms = [
-    ...javaPrograms1to10,
-    ...javaPrograms11to20,
-  ];
-
-  // =========================================================
-  // COPY CODE
-  // =========================================================
-
-  const copyCode = async (code) => {
-    try {
-      await navigator.clipboard.writeText(code);
-      alert("Code copied successfully!");
-    } catch (error) {
-      alert("Unable to copy code.");
-    }
-  };
-
-  // =========================================================
-  // SUBJECT CLICK
-  // =========================================================
-
-  const handleSubjectClick = (subject) => {
-    setSelectedSubject(subject);
-    setSelectedProgram(null);
-  };
-
-  // =========================================================
-  // PROGRAM CLICK
-  // =========================================================
-
-  const handleProgramClick = (program) => {
-    setSelectedProgram(program);
-  };
-
-  // =========================================================
-  // PROGRAM VIEW
-  // =========================================================
+  /* =========================
+     PROGRAM VIEW
+     ========================= */
 
   if (selectedProgram) {
+    const isShell = selectedProgram.type === "shell";
+
     return (
       <div className="app">
-        <header className="header">
-          <h1>📚 Semester Vault</h1>
-          <p>Your Notes & Lab Programs</p>
+
+        <header>
+          <h1>📚 My Notes</h1>
+          <p>My Semester Notes</p>
         </header>
 
-        <main className="container">
-          <button
-            className="back-button"
-            onClick={() => setSelectedProgram(null)}
-          >
-            ← Back to Java Lab
-          </button>
+        <div className="container">
 
-          <div className="program-page">
-            <h2>
-              Java Lab Program {selectedProgram.number}
-            </h2>
+          <aside>
 
-            <h3>{selectedProgram.title}</h3>
+            <h2>Semesters</h2>
 
-            <div className="code-header">
-              <span>Java Code</span>
+            <button
+              onClick={() => {
+                setSemester("3rd Semester");
+                setSelectedProgram(null);
+              }}
+            >
+              📘 3rd Semester
+            </button>
+
+            <button
+              onClick={() => {
+                setSemester("4th Semester");
+                setSelectedProgram(null);
+              }}
+            >
+              📗 4th Semester
+            </button>
+
+            <button
+              onClick={() => {
+                setSemester("5th Semester");
+                setSelectedProgram(null);
+              }}
+            >
+              📙 5th Semester
+            </button>
+
+            <button
+              onClick={() => {
+                setSemester("6th Semester");
+                setSelectedProgram(null);
+              }}
+            >
+              📕 6th Semester
+            </button>
+
+          </aside>
+
+          <main>
+
+            <div className="program-view">
+
+              <button
+                onClick={() => setSelectedProgram(null)}
+              >
+                ← Back to Subjects
+              </button>
+
+              <h2>
+                Program {selectedProgram.number}
+              </h2>
+
+              <h3>
+                {selectedProgram.title}
+              </h3>
+
+              <h4>
+                {isShell ? "Shell Code" : "Java Code"}
+              </h4>
 
               <button
                 onClick={() =>
@@ -1499,260 +1978,320 @@ public class Barchart extends Applet {
               >
                 📋 Copy Code
               </button>
-            </div>
 
-            <pre className="code-box">
-              <code>{selectedProgram.code}</code>
-            </pre>
+              <pre>
+                <code>
+                  {selectedProgram.code}
+                </code>
+              </pre>
 
-            {selectedProgram.html && (
-              <>
-                <div className="code-header">
-                  <span>HTML Code</span>
+              {selectedProgram.html && (
+                <>
+                  <h4>HTML Code</h4>
 
                   <button
                     onClick={() =>
                       copyCode(selectedProgram.html)
                     }
                   >
-                    📋 Copy HTML
+                    📋 Copy HTML Code
                   </button>
-                </div>
 
-                <pre className="code-box">
-                  <code>{selectedProgram.html}</code>
-                </pre>
-              </>
-            )}
-          </div>
-        </main>
+                  <pre>
+                    <code>
+                      {selectedProgram.html}
+                    </code>
+                  </pre>
+                </>
+              )}
+
+              {selectedProgram.commands && (
+                <>
+                  <h4>Command Prompt</h4>
+
+                  <pre>
+                    <code>
+                      {selectedProgram.commands}
+                    </code>
+                  </pre>
+                </>
+              )}
+
+            </div>
+
+          </main>
+
+        </div>
+
       </div>
     );
   }
 
-  // =========================================================
-  // MAIN PAGE
-  // =========================================================
+  /* =========================
+     MAIN WEBSITE
+     ========================= */
 
   return (
     <div className="app">
 
-      <header className="header">
-        <h1>📚 Semester Vault</h1>
-        <p>
-          Notes, Programs and Lab Materials
-        </p>
+      <header>
+        <h1>📚 My Notes</h1>
+        <p>My Semester Notes</p>
       </header>
 
-      <div className="semester-buttons">
+      <div className="container">
 
-        {Object.keys(subjects).map((sem) => (
+        <aside>
+
+          <h2>Semesters</h2>
 
           <button
-            key={sem}
-            className={
-              semester === sem
-                ? "semester active"
-                : "semester"
-            }
             onClick={() => {
-              setSemester(sem);
-              setSelectedSubject(null);
+              setSemester("3rd Semester");
+              setSelectedProgram(null);
             }}
           >
-            {sem}
+            📘 3rd Semester
           </button>
 
-        ))}
+          <button
+            onClick={() => {
+              setSemester("4th Semester");
+              setSelectedProgram(null);
+            }}
+          >
+            📗 4th Semester
+          </button>
+
+          <button
+            onClick={() => {
+              setSemester("5th Semester");
+              setSelectedProgram(null);
+            }}
+          >
+            📙 5th Semester
+          </button>
+
+          <button
+            onClick={() => {
+              setSemester("6th Semester");
+              setSelectedProgram(null);
+            }}
+          >
+            📕 6th Semester
+          </button>
+
+        </aside>
+
+        <main>
+
+          <h2>{semester}</h2>
+
+          <div className="subjects">
+
+            {subjects[semester].map((subject) => (
+
+              <div
+                className="subject"
+                key={subject}
+              >
+
+                <h3>📖 {subject}</h3>
+
+                <p>
+                  Click to view notes
+                </p>
+
+                {/* JAVA */}
+
+                {subject === "Java" && (
+                  <>
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "https://1drv.ms/p/c/187D7A65FFEBBE6D/IQSufqaL3kAOR4K375kwyzu9AZgsMS5ekkQx4W4foZGYlIM?em=2&wdAr=1.7777777777777777"
+                        )
+                      }
+                    >
+                      Module 1 Part 1
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "/notes/Module-1%20Part-2.pdf"
+                        )
+                      }
+                    >
+                      Module 1 Part 2
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "/notes/JAVA%20MODULE-2.pdf"
+                        )
+                      }
+                    >
+                      Module 2
+                    </button>
+                  </>
+                )}
+
+                {/* JAVA LAB */}
+
+                {subject === "Java Lab" && (
+                  <div className="program-list">
+
+                    {javaLabPrograms.map(
+                      (program) => (
+
+                        <button
+                          key={program.number}
+                          onClick={() =>
+                            setSelectedProgram({
+                              ...program,
+                              type: "java",
+                            })
+                          }
+                        >
+                          Program {program.number}
+                        </button>
+
+                      )
+                    )}
+
+                  </div>
+                )}
+
+                {/* SHELL LAB */}
+
+                {subject === "Shell Lab" && (
+                  <div className="program-list">
+
+                    {shellPrograms.map(
+                      (program) => (
+
+                        <button
+                          key={program.number}
+                          onClick={() =>
+                            setSelectedProgram({
+                              ...program,
+                              type: "shell",
+                            })
+                          }
+                        >
+                          Program {program.number}
+                        </button>
+
+                      )
+                    )}
+
+                  </div>
+                )}
+
+                {/* CC */}
+
+                {subject === "CC" && (
+                  <button
+                    onClick={() =>
+                      openNote(
+                        "https://1drv.ms/p/c/187D7A65FFEBBE6D/IQTGO4lPB1EeRKaXN-EA735tAeqnC8fz_NfWSQjmqaFxvvs?em=2&wdAr=1.7777777777777777"
+                      )
+                    }
+                  >
+                    Module 1
+                  </button>
+                )}
+
+                {/* DAA */}
+
+                {subject === "DAA" && (
+                  <button
+                    onClick={() =>
+                      openNote(
+                        "/notes/DAA-Module-1.pdf"
+                      )
+                    }
+                  >
+                    Module 1
+                  </button>
+                )}
+
+                {/* DBMS */}
+
+                {subject === "DBMS" && (
+                  <>
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "/notes/DBMS-Unit-1.pdf"
+                        )
+                      }
+                    >
+                      Unit 1
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "/notes/DBMS-Unit-1-Chapter-2.pdf"
+                        )
+                      }
+                    >
+                      Chapter 2
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "/notes/DBMS-Unit-2.pdf"
+                        )
+                      }
+                    >
+                      Unit 2
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        openNote(
+                          "https://1drv.ms/p/c/187D7A65FFEBBE6D/IQQB_8nFVTDCSZOefAISUxiBAUD-RL-jq4BdMKNGYt_XBok?em=2&wdAr=1.7777777777777777"
+                        )
+                      }
+                    >
+                      Unit 2 Part 2
+                    </button>
+                  </>
+                )}
+
+                {/* OTHER SUBJECTS */}
+
+                {subject !== "Java" &&
+                  subject !== "CC" &&
+                  subject !== "DAA" &&
+                  subject !== "DBMS" &&
+                  subject !== "Java Lab" &&
+                  subject !== "Shell Lab" && (
+                    <button
+                      onClick={() =>
+                        alert(
+                          `Notes for ${subject} will be added soon.`
+                        )
+                      }
+                    >
+                      View Notes
+                    </button>
+                  )}
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </main>
 
       </div>
-
-      <main className="container">
-
-        <h2>{semester}</h2>
-
-        <div className="subject-grid">
-
-          {subjects[semester].map((subject) => (
-
-            <button
-              key={subject}
-              className="subject-card"
-              onClick={() =>
-                handleSubjectClick(subject)
-              }
-            >
-              {subject === "Java" && "☕ "}
-              {subject === "CC" && "💻 "}
-              {subject === "DAA" && "⚙️ "}
-              {subject === "DBMS" && "🗄️ "}
-              {subject === "Java Lab" && "☕ "}
-              {subject === "DBMS Lab" && "🗄️ "}
-              {subject === "Shell Lab" && "⌨️ "}
-
-              {subject}
-            </button>
-
-          ))}
-
-        </div>
-
-        {selectedSubject === "Java Lab" && (
-
-          <section className="lab-section">
-
-            <h2>☕ Java Lab Programs</h2>
-
-            <p>
-              Programs 1–10: Earlier Java Lab programs
-              <br />
-              Programs 11–20: Part B
-            </p>
-
-            <div className="program-grid">
-
-              {javaLabPrograms.map((program) => (
-
-                <button
-                  key={program.number}
-                  className="program-button"
-                  onClick={() =>
-                    handleProgramClick(program)
-                  }
-                >
-                  Program {program.number}
-                  <span>
-                    {program.title}
-                  </span>
-                </button>
-
-              ))}
-
-            </div>
-
-          </section>
-
-        )}
-
-        {selectedSubject === "Java" && (
-
-          <section className="notes-section">
-
-            <h2>☕ Java Notes</h2>
-
-            <div className="note-card">
-              <h3>Java Basics</h3>
-              <p>
-                Java is a high-level,
-                object-oriented and platform-independent
-                programming language.
-              </p>
-            </div>
-
-            <div className="note-card">
-              <h3>JDK, JRE and JVM</h3>
-              <p>
-                JDK is used for Java development.
-                JRE provides the environment to run Java
-                programs.
-                JVM executes Java bytecode.
-              </p>
-            </div>
-
-          </section>
-
-        )}
-
-        {selectedSubject === "CC" && (
-
-          <section className="notes-section">
-
-            <h2>💻 Computer Concepts</h2>
-
-            <div className="note-card">
-              <h3>Computer Concepts</h3>
-              <p>
-                Add your CC notes and study material here.
-              </p>
-            </div>
-
-          </section>
-
-        )}
-
-        {selectedSubject === "DAA" && (
-
-          <section className="notes-section">
-
-            <h2>⚙️ DAA</h2>
-
-            <div className="note-card">
-              <h3>Design and Analysis of Algorithms</h3>
-              <p>
-                Add your DAA notes and programs here.
-              </p>
-            </div>
-
-          </section>
-
-        )}
-
-        {selectedSubject === "DBMS" && (
-
-          <section className="notes-section">
-
-            <h2>🗄️ DBMS</h2>
-
-            <div className="note-card">
-              <h3>Database Management System</h3>
-              <p>
-                Add your DBMS notes here.
-              </p>
-            </div>
-
-          </section>
-
-        )}
-
-        {selectedSubject === "DBMS Lab" && (
-
-          <section className="notes-section">
-
-            <h2>🗄️ DBMS Lab</h2>
-
-            <div className="note-card">
-              <h3>DBMS Lab Programs</h3>
-              <p>
-                Add your DBMS Lab programs here.
-              </p>
-            </div>
-
-          </section>
-
-        )}
-
-        {selectedSubject === "Shell Lab" && (
-
-          <section className="notes-section">
-
-            <h2>⌨️ Shell Lab</h2>
-
-            <p>
-              Your existing Shell Lab programs are kept
-              separately. This section has NOT been changed.
-            </p>
-
-          </section>
-
-        )}
-
-      </main>
-
-      <footer className="footer">
-        <p>
-          © 2026 Semester Vault
-        </p>
-      </footer>
 
     </div>
   );
