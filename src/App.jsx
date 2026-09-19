@@ -2164,14 +2164,12 @@ fi`,
                     </button>
 
                     <button
-                      onClick={() =>
-                        openNote(
-                          openNote("/notes/java/JAVA%20MODULE-2.pdf")
-                        )
-                      }
-                    >
-                      Module 2
-                    </button>
+  onClick={() =>
+    openNote("/notes/JAVA%20MODULE-2.pdf")
+  }
+>
+  Module 2
+</button>
                   </>
                 )}
 
