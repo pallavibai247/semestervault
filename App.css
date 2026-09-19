@@ -119,3 +119,58 @@ button {
   border: none;
   border-radius: 6px;
 }
+
+/* Subject cards layout */
+.subjects {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 260px), 1fr)
+  );
+  gap: 20px;
+  width: 100%;
+}
+
+.subject {
+  min-width: 0;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.subject h3 {
+  margin-top: 0;
+}
+
+/* Keep buttons inside each subject card */
+.subject button {
+  margin: 4px;
+  padding: 8px 12px;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Responsive layout for phones */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  aside {
+    width: 100%;
+    min-height: auto;
+  }
+
+  main {
+    width: 100%;
+    min-width: 0;
+    padding: 16px;
+  }
+
+  .subjects {
+    grid-template-columns: 1fr;
+  }
+.subjects { display: grid; gap: 20px; }
