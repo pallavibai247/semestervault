@@ -132,13 +132,17 @@ function App() {
 {subject === "DAA" && (
   <>
     <button
-      onClick={() => openNote("/notes/DAA-Unit1.pdf")}
+      onClick={() =>
+        openNote("https://semestervault.vercel.app/notes/DAA-Unit1.pdf")
+      }
     >
       Unit 1
     </button>
 
     <button
-      onClick={() => openNote("/notes/DAA-Unit2.pdf")}
+      onClick={() =>
+        openNote("https://semestervault.vercel.app/notes/DAA-Unit2.pdf")
+      }
     >
       Unit 2
     </button>
