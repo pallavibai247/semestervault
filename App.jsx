@@ -144,6 +144,8 @@ function App() {
     </button>
   </>
 )}
+
+{/* DBMS */}
                 {/* DBMS */}
 
                 {subject === "DBMS" && (
