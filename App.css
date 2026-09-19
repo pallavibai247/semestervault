@@ -185,3 +185,27 @@ button {
   overflow-wrap: anywhere;
   margin: 4px;
 }
+/* Fix lab program button wrapping */
+.subject {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+}
+
+.subject h3,
+.subject p {
+  flex: 0 0 100%;
+  text-align: center;
+}
+
+.subject button {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
