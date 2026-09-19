@@ -2245,11 +2245,11 @@ fi`,
                   <button
                     onClick={() =>
                       openNote(
-                        "/notes/DAA-Module-1.pdf"
+                        "/notes/DAA-Unit1.pdf"
                       )
                     }
                   >
-                    Module 1
+                    Unit 1
                   </button>
                 )}
 
