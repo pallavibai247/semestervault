@@ -173,4 +173,17 @@ button {
   .subjects {
     grid-template-columns: 1fr;
   }
-.subjects { display: grid; gap: 20px; }
+.subjects { 
+  min-width: 0;
+}
+
+.subjects {
+  grid-template-columns: 1fr;
+}
+
+.subject button {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  margin: 4px;
+}
