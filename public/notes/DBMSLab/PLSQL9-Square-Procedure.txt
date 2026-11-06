@@ -1,0 +1,21 @@
+-- DECLARE AND CREATE PROCEDURE
+CREATE OR REPLACE PROCEDURE squareNum(x IN OUT NUMBER)
+IS
+BEGIN
+    x := x * x;
+END;
+/
+
+-- EXECUTE PROCEDURE
+DECLARE
+    a NUMBER;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Enter the number');
+
+    a := &a;
+
+    squareNum(a);
+
+    DBMS_OUTPUT.PUT_LINE('Square of a: ' || a);
+END;
+/

@@ -1,0 +1,21 @@
+DECLARE
+    a NUMBER(3) := 1;
+    b NUMBER(3) := 1;
+    c NUMBER(3);
+    n NUMBER(3);
+
+BEGIN
+    n := &n;
+
+    DBMS_OUTPUT.PUT_LINE('The Fibonacci series is:');
+
+    WHILE a <= n LOOP
+        DBMS_OUTPUT.PUT_LINE(a);
+
+        c := a + b;
+        a := b;
+        b := c;
+    END LOOP;
+
+END;
+/

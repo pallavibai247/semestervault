@@ -1,0 +1,33 @@
+-- LOWER, UPPER AND INITCAP FUNCTIONS
+SELECT LOWER('data') "A",
+       UPPER('base') "B",
+       INITCAP('data base') "C"
+FROM dual;
+
+-- CONCAT AND LENGTH FUNCTIONS
+SELECT CONCAT('bca', 'students') "concat",
+       LENGTH('banglore') "length"
+FROM dual;
+
+-- SUBSTR FUNCTION
+SELECT SUBSTR('data base', 1, 3)
+FROM dual;
+
+-- INSTR FUNCTION
+SELECT INSTR('data base', 'data')
+FROM dual;
+
+-- TRIM FUNCTION
+SELECT TRIM('data system') "trim"
+FROM dual;
+
+-- REPLACE FUNCTION
+SELECT REPLACE('shiv', 'khush', 'kavi')
+FROM dual;
+
+-- FLOOR, CEIL, SQRT AND TRUNC FUNCTIONS
+SELECT FLOOR(3.142),
+       CEIL(3.142),
+       SQRT(16),
+       TRUNC(100.123)
+FROM dual;

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+read -p "Enter principal: " p
+read -p "Enter rate (%): " r
+read -p "Enter time (years): " t
+
+si=$(awk -v p="$p" -v r="$r" -v t="$t" 'BEGIN{printf "%.2f", p*r*t/100}')
+
+echo "Simple Interest = $si"

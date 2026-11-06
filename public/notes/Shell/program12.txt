@@ -1,0 +1,27 @@
+#!/bin/bash
+
+read -p "Enter first number: " a
+read -p "Enter operator (+ - * /): " op
+read -p "Enter second number: " b
+
+case "$op" in
+    +)
+        echo "Result = $((a+b))"
+        ;;
+    -)
+        echo "Result = $((a-b))"
+        ;;
+    \*)
+        echo "Result = $((a*b))"
+        ;;
+    /)
+        if (( b != 0 )); then
+            awk -v a="$a" -v b="$b" 'BEGIN{printf "Result = %.2f\n", a/b}'
+        else
+            echo "Division by zero not allowed"
+        fi
+        ;;
+    *)
+        echo "Invalid operator"
+        ;;
+esac

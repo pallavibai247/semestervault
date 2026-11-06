@@ -1,0 +1,25 @@
+-- CREATE EMPLOYEE TABLE
+CREATE TABLE employee (
+    emp_id NUMBER(5) PRIMARY KEY,
+    emp_name VARCHAR2(30),
+    emp_dept VARCHAR2(10),
+    emp_salary VARCHAR2(8)
+);
+
+DECLARE
+BEGIN
+    INSERT INTO employee
+    VALUES (10, 'Adisesha', 'hod', 40000);
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('record inserted successfully');
+
+END;
+/
+
+-- DISPLAY TABLE STRUCTURE
+DESC employee;
+
+-- DISPLAY EMPLOYEE RECORDS
+SELECT * FROM employee;

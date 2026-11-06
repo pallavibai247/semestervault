@@ -1,0 +1,15 @@
+#!/bin/bash
+
+read -r -p "Enter a string: " s
+
+rev=""
+
+for ((i=${#s}-1; i>=0; i--)); do
+    rev+="${s:i:1}"
+done
+
+if [[ "$s" == "$rev" ]]; then
+    echo "Palindrome"
+else
+    echo "Not Palindrome"
+fi

@@ -1,0 +1,19 @@
+-- PROGRAM 2: REVERSE OF A NUMBER
+
+DECLARE
+    n NUMBER(10) := &n;
+    s NUMBER(10) := 0;
+    r NUMBER(10);
+
+BEGIN
+    WHILE n > 0 LOOP
+        r := MOD(n, 10);
+        s := (s * 10) + r;
+        n := TRUNC(n / 10);
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('The reverse number is:');
+    DBMS_OUTPUT.PUT_LINE(s);
+
+END;
+/

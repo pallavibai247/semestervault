@@ -1,0 +1,16 @@
+-- CREATE PROCEDURE
+CREATE OR REPLACE PROCEDURE sum(n1 IN NUMBER, n2 IN NUMBER)
+IS
+    Total NUMBER(6);
+BEGIN
+    Total := n1 + n2;
+
+    DBMS_OUTPUT.PUT_LINE('The sum is ' || Total);
+END;
+/
+
+-- EXECUTE PROCEDURE
+BEGIN
+    sum(10,20);
+END;
+/

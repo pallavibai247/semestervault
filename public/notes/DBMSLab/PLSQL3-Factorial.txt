@@ -1,0 +1,16 @@
+DECLARE
+    l NUMBER(4) := 1;
+    n NUMBER(4) := &n;
+    f NUMBER(10) := 1;
+
+BEGIN
+    FOR i IN 1..n LOOP
+        f := f * i;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE(
+        'Factorial of a number is ' || f
+    );
+
+END;
+/

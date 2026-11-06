@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "Current directory:"
+pwd
+
+echo "Changing directory to /tmp"
+cd /tmp
+
+echo "Current directory:"
+pwd
+
+echo "Hello, Shell Lab!"
+
+read -p "Enter your name: " name
+
+echo "Welcome, $name"
+
+export COLLEGE="ABC College"
+
+echo "College: $COLLEGE"

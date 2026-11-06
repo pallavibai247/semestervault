@@ -1,0 +1,11 @@
+#!/bin/bash
+
+ls -l
+
+cat file.txt
+
+grep "hello" file.txt
+
+sort names.txt
+
+date

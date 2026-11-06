@@ -1,0 +1,46 @@
+-- CREATE STUDENT TABLE
+CREATE TABLE student (
+    sid NUMBER(5) PRIMARY KEY,
+    sname VARCHAR2(30),
+    marks NUMBER(5)
+);
+
+-- INSERT STUDENT RECORDS
+INSERT INTO student VALUES (1, 'Anil', 85);
+INSERT INTO student VALUES (2, 'Ramesh', 90);
+INSERT INTO student VALUES (3, 'Suresh', 75);
+INSERT INTO student VALUES (4, 'Priya', 95);
+
+-- CREATE PROCEDURE USING CURSOR
+CREATE OR REPLACE PROCEDURE display_students
+IS
+    CURSOR student_cursor IS
+        SELECT sid, sname, marks FROM student;
+
+    v_sid student.sid%TYPE;
+    v_name student.sname%TYPE;
+    v_marks student.marks%TYPE;
+BEGIN
+    OPEN student_cursor;
+
+    LOOP
+        FETCH student_cursor INTO v_sid, v_name, v_marks;
+        EXIT WHEN student_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(
+            v_sid || ' ' || v_name || ' ' || v_marks
+        );
+    END LOOP;
+
+    CLOSE student_cursor;
+END;
+/
+
+-- EXECUTE PROCEDURE
+BEGIN
+    display_students;
+END;
+/
+
+-- DISPLAY STUDENT RECORDS
+SELECT * FROM student;

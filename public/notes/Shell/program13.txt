@@ -1,0 +1,21 @@
+#!/bin/bash
+
+read -p "Enter numbers separated by spaces: " -a a
+
+p=0
+n=0
+z=0
+
+for x in "${a[@]}"; do
+    if ((x > 0)); then
+        ((p++))
+    elif ((x < 0)); then
+        ((n++))
+    else
+        ((z++))
+    fi
+done
+
+echo "Positive = $p"
+echo "Negative = $n"
+echo "Zero = $z"

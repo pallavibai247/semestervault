@@ -1,0 +1,11 @@
+#!/bin/bash
+
+read -p "Enter directory: " dir
+
+if [[ -d "$dir" ]]; then
+    for f in "$dir"/*; do
+        [[ -f "$f" && -r "$f" && -w "$f" && -x "$f" ]] && echo "$(basename "$f")"
+    done
+else
+    echo "Directory not found"
+fi

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+read -p "Enter numbers separated by spaces: " -a a
+
+max=${a[0]}
+min=${a[0]}
+
+for x in "${a[@]}"; do
+    ((x > max)) && max=$x
+    ((x < min)) && min=$x
+done
+
+echo "Maximum = $max"
+echo "Minimum = $min"

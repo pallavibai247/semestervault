@@ -1,0 +1,24 @@
+DECLARE
+    num NUMBER;
+    c NUMBER := 0;
+
+BEGIN
+    num := &num;
+
+    IF num > 1 THEN
+        FOR i IN 1..num LOOP
+            IF MOD(num, i) = 0 THEN
+                c := c + 1;
+            END IF;
+        END LOOP;
+
+        IF c = 2 THEN
+            DBMS_OUTPUT.PUT_LINE(num || ' is prime');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE(num || ' is not prime');
+        END IF;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(num || ' is not prime');
+    END IF;
+END;
+/

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+read -p "Enter a number: " n
+
+orig=$n
+rev=0
+
+while (( n > 0 )); do
+    digit=$((n % 10))
+    rev=$((rev * 10 + digit))
+    n=$((n / 10))
+done
+
+echo "Reverse = $rev"
+
+if (( orig == rev )); then
+    echo "Palindrome"
+else
+    echo "Not Palindrome"
+fi

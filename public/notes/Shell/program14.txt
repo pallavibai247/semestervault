@@ -1,0 +1,9 @@
+#!/bin/bash
+
+read -p "Enter three angles: " a b c
+
+if ((a > 0 && b > 0 && c > 0 && a + b + c == 180)); then
+    echo "Valid Triangle"
+else
+    echo "Invalid Triangle"
+fi

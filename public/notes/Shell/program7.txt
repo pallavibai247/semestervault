@@ -1,0 +1,18 @@
+#!/bin/bash
+
+read -p "Enter two integers: " a b
+
+x=$a
+y=$b
+
+while (( y != 0 )); do
+    r=$((x % y))
+    x=$y
+    y=$r
+done
+
+gcd=$x
+lcm=$((a * b / gcd))
+
+echo "GCD = $gcd"
+echo "LCM = $lcm"
