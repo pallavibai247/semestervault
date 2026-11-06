@@ -304,35 +304,56 @@ function App() {
                   </>
                 )}
 
-                {/* JAVA LAB – ORIGINAL MAPPING */}
-                {subject === "Java Lab" && (
-                  <>
-                    {Array.from({ length: 20 }, (_, i) => (
-                      <button
-                        key={i + 1}
-                        onClick={() => openJavaProgram(i + 1)}
-                      >
-                        Program {i + 1}
-                      </button>
-                    ))}
-                  </>
-                )}
+                {/* JAVA LAB */}
+{subject === "Java Lab" && (
+  <>
+    {Object.entries(javaProgramFiles).map(([number, filename]) => (
+      <button
+        key={number}
+        onClick={() => openJavaProgram(Number(number))}
+      >
+        {filename.replace(".java", "")}
+      </button>
+    ))}
+  </>
+)}
 
                 {/* SHELL LAB – ORIGINAL PATHS */}
-                {subject === "Shell Lab" && (
-                  <>
-                    {Array.from({ length: 20 }, (_, i) => (
-                      <button
-                        key={i + 1}
-                        onClick={() =>
-                          openNote(`/notes/Shell/program${i + 1}.txt`)
-                        }
-                      >
-                        Program {i + 1}
-                      </button>
-                    ))}
-                  </>
-                )}
+{subject === "Shell Lab" && (
+  <>
+    {[
+      "Basic Shell Commands",
+      "File Handling Commands",
+      "Simple Interest",
+      "Prime Numbers in a Range",
+      "Palindrome Number",
+      "Maximum and Minimum in an Array",
+      "GCD and LCM of Two Numbers",
+      "Count Lines, Words and Characters",
+      "List Files in a Directory",
+      "List Files with Read, Write and Execute Permissions",
+      "Leap Year",
+      "Simple Calculator Using Case",
+      "Count Positive, Negative and Zero Numbers",
+      "Triangle Validation",
+      "Factorial of a Number",
+      "Multiplication Table",
+      "Count Digits and Sum of Digits",
+      "Fibonacci Series",
+      "Reverse a String",
+      "String Palindrome"
+    ].map((name, i) => (
+      <button
+        key={i + 1}
+        onClick={() =>
+          openNote(`/notes/Shell/program${i + 1}.txt`)
+        }
+      >
+        {name}
+      </button>
+    ))}
+  </>
+)}
               </div>
             ))}
           </div>
